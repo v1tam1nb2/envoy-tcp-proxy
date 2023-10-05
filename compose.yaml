@@ -1,0 +1,26 @@
+version: '3'
+services:
+  envoy:
+    container_name: envoy
+    hostname: envoy
+    image: envoyproxy/envoy:v1.27-latest
+    ports:
+      - "9901:9901"
+      - "9000:9000"
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.3.8.21
+    container_name: clickhouse
+    hostname: clickhouse
+    restart: always
+    # volumes:
+    # - ./volumes/var/lib/clickhouse:/var/lib/clickhouse
+    # - ./volumes/var/log/clickhouse-server:/var/log/clickhouse-server
+    # - ./volumes/etc/clickhouse-server/users.d:/etc/clickhouse-server/users.d
+    # - ./volumes/etc/clickhouse-server/config.d:/etc/clickhouse-server/config.d
+    ipc: host
+    # ports:
+    # - "9000:9000"
+    # - "8123:8123"
